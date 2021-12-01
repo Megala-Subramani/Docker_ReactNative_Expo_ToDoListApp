@@ -1,0 +1,25 @@
+version: '2.0'
+
+services:
+  todolistapp:
+    build:
+      context: .
+    tty: true
+    ports:
+      - '19000:19000'
+      - '19001:19001'
+      - '19002:19002'
+    volumes:
+      - ./App:/opt/todolistapp/app:delegated
+      - ./App/package.json:/opt/todolistapp/package.json
+      - ./App/package-lock.json:/opt/todolistapp/package-lock.json
+      - notused:/opt/todolistapp/app/node_modules
+    healthcheck:
+      disable: true
+    environment:
+         - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0 
+         - REACT_NATIVE_PACKAGER_HOSTNAME=192.168.0.101
+         # 192.168.0.101 This is local PC IP Address
+          #Wireless LAN adapter Wi-Fi: IPv4 Address. . . . . . . . . . . : 192.168.0.101 [CMD -> ipconfig]
+volumes:
+  notused:
